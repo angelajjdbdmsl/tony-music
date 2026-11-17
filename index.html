@@ -28,42 +28,33 @@ audio{width:100%;margin-top:6px;height:35px}
 </div>
 <div id="res"></div>
 <script>
-async function buscar(){
+function buscar(){
 let q=document.getElementById('q').value.trim();
 if(!q) return;
 let res=document.getElementById('res');
 res.innerHTML='<p style="text-align:center">Buscando...</p>';
-
-// INTENTO 1: DEEZER
-try{
-let r=await fetch('https://corsproxy.io/?url='+encodeURIComponent('https://api.deezer.com/search?q='+encodeURIComponent(q)));
-let d=await r.json();
-if(d.data && d.data.length>0){
-let html='';
-d.data.slice(0,12).forEach(s=>{
-html+='<div class="card"><img src="'+s.album.cover_medium+'"><div style="flex:1"><b>'+s.title+'</b><br><small>'+s.artist.name+'</small><audio controls src="'+s.preview+'"></audio></div></div>';
-});
-res.innerHTML=html;
+let viejo=document.getElementById('buscador');
+if(viejo) viejo.remove();
+window.mostrarMusica=function(d){
+if(!d || !d.results || d.results.length===0){
+res.innerHTML='<p style="text-align:center">No encontré nada</p>';
 return;
 }
-}catch(e){}
-
-// INTENTO 2: ITUNES SIN PAIS
-try{
-let url='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=12';
-let r=await fetch(url);
-let d=await r.json();
-if(d.results && d.results.length>0){
 let html='';
-d.results.forEach(s=>{
-html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls src="'+s.previewUrl+'"></audio></div></div>';
+d.results.forEach(function(s){
+html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls preload="none" src="'+s.previewUrl+'"></audio></div></div>';
 });
 res.innerHTML=html;
-return;
+};
+let sc=document.createElement('script');
+sc.id='buscador';
+sc.src='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=12&callback=mostrarMusica';
+document.body.appendChild(sc);
+setTimeout(function(){
+if(document.getElementById('res').innerHTML.indexOf('Buscando')!==-1){
+document.getElementById('res').innerHTML='<p style="text-align:center">Tarda mucho, pícale otra vez a Buscar</p>';
 }
-}catch(e){}
-
-res.innerHTML='<p style="text-align:center">No encontré nada, intenta otra palabra</p>';
+},8000);
 }
 buscar();
 </script>
