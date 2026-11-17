@@ -35,9 +35,8 @@ if(!q) return;
 document.getElementById('res').innerHTML='<p style="text-align:center">Buscando...</p>';
 try{
 let url='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=10';
-let r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url));
-let j=await r.json();
-let d=JSON.parse(j.contents);
+let r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
+let d=await r.json();
 let html='';
 d.results.forEach(s=>{
 html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls src="'+s.previewUrl+'"></audio></div></div>';
