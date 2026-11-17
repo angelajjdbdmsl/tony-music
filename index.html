@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TONY MUSIC + RADIO</title>
+<title>Angel Music</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
   body{background:#000;color:#fff;padding-bottom:150px}
   .hidden{display:none!important}
   .auth{max-width:400px;margin:40px auto;padding:20px}
   .logo-big{width:80px;height:80px;background:#1ed760;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;color:#000;margin:0 auto 15px}
-  .auth h1{text-align:center;font-size:28px}
+  .auth h1{text-align:center;font-size:28px;letter-spacing:1px}
   .auth p{text-align:center;color:#aaa;font-size:13px;margin:8px 0 20px}
   .auth input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#1a1a1a;color:#fff;margin-bottom:10px;outline:none}
   .btn{width:100%;padding:14px;border:none;border-radius:30px;background:#1ed760;color:#000;font-weight:bold;font-size:15px;cursor:pointer;margin-bottom:10px}
@@ -29,7 +29,6 @@
   .btn-admin-top{background:#ff2d55!important;color:#fff!important;font-weight:bold!important;font-size:13px!important;padding:11px 18px!important;box-shadow:0 0 15px #ff2d55aa}
   .header{padding:15px;display:flex;align-items:center;gap:12px}
   .logo{width:42px;height:42px;background:#1ed760;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#000}
-  /* TABS */
   .tabs{display:flex;margin:0 15px;background:#1a1a1a;border-radius:30px;padding:5px}
   .tab{flex:1;text-align:center;padding:11px;border-radius:25px;font-weight:bold;font-size:14px;cursor:pointer;color:#aaa}
   .tab.active{background:#fff;color:#000}
@@ -65,7 +64,7 @@
 <!-- LOGIN / REGISTRO -->
 <div id="pantallaAuth" class="auth">
   <div class="logo-big">♪</div>
-  <h1>TONY MUSIC</h1>
+  <h1>ANGEL MUSIC</h1>
   <p>Música + Radio • Regístrate para entrar</p>
   <div id="msgAuth"></div>
   <div id="formLogin">
@@ -73,7 +72,6 @@
     <input id="loginPass" type="password" placeholder="🔒 Contraseña">
     <button class="btn" onclick="login()">▶ ENTRAR</button>
     <button class="btn2" onclick="mostrarRegistro()">¿No tienes cuenta? Regístrate</button>
-    <p style="margin-top:15px;color:#666;font-size:12px">Admin prueba:<br><b style="color:#fff">admin / tony123</b></p>
   </div>
   <div id="formRegistro" class="hidden">
     <input id="regNombre" placeholder="👤 Tu nombre">
@@ -100,32 +98,29 @@
 
   <div class="header">
     <div class="logo">♪</div>
-    <div><b style="font-size:20px">TONY MUSIC</b><br><span style="font-size:11px;background:#1ed760;color:#000;padding:3px 8px;border-radius:20px;font-weight:bold">MÚSICA + RADIO</span></div>
+    <div><b style="font-size:20px">ANGEL MUSIC</b><br><span style="font-size:11px;background:#1ed760;color:#000;padding:3px 8px;border-radius:20px;font-weight:bold">MÚSICA + RADIO</span></div>
   </div>
 
-  <!-- TABS MUSICA / RADIO -->
   <div class="tabs">
     <div class="tab active" id="tabMusica" onclick="cambiarTab('musica')">🎵 Música</div>
     <div class="tab" id="tabRadio" onclick="cambiarTab('radio')">📻 Radio en vivo</div>
   </div>
 
-  <!-- BUSCADOR MUSICA -->
   <div id="buscadorMusica">
     <div class="search-bar">🔍 <input id="buscar" placeholder="Busca: 【entity-Peso Pluma¦canonical_name=Peso Pluma】, 【entity-Karol G¦canonical_name=Karol G】..." onkeydown="if(event.key==='Enter') buscar()"><button onclick="buscar()">Buscar</button></div>
     <div class="chips">
-      <div class="chip active" onclick="buscarRapido('【entity-Peso Pluma¦canonical_name=Peso Pluma】',this)">【entity-Peso Pluma¦canonical_name=Peso Pluma】</div>
-      <div class="chip" onclick="buscarRapido('【entity-Junior H¦canonical_name=Junior H】',this)">【entity-Junior H¦canonical_name=Junior H】</div>
-      <div class="chip" onclick="buscarRapido('【entity-Karol G¦canonical_name=Karol G】',this)">【entity-Karol G¦canonical_name=Karol G】</div>
-      <div class="chip" onclick="buscarRapido('【entity-Fuerza Regida¦canonical_name=Fuerza Regida】',this)">【entity-Fuerza Regida¦canonical_name=Fuerza Regida】</div>
+      <div class="chip active" onclick="buscarRapido(' 【entity-Peso Pluma¦canonical_name=Peso Pluma】',this)"> 【entity-Peso Pluma¦canonical_name=Peso Pluma】</div>
+      <div class="chip" onclick="buscarRapido(' 【entity-Junior H¦canonical_name=Junior H】',this)"> 【entity-Junior H¦canonical_name=Junior H】</div>
+      <div class="chip" onclick="buscarRapido(' 【entity-Karol G¦canonical_name=Karol G】',this)"> 【entity-Karol G¦canonical_name=Karol G】</div>
+      <div class="chip" onclick="buscarRapido(' 【entity-Fuerza Regida¦canonical_name=Fuerza Regida】',this)"> 【entity-Fuerza Regida¦canonical_name=Fuerza Regida】</div>
     </div>
   </div>
 
-  <!-- BUSCADOR RADIO -->
   <div id="buscadorRadio" class="hidden">
-    <div class="search-bar">📻 <input id="buscarRadio" placeholder="Busca radio: La Mejor, Exa, Los 40..." onkeydown="if(event.key==='Enter') buscarRadio()"><button onclick="buscarRadio()">Buscar</button></div>
+    <div class="search-bar">📻 <input id="buscarRadio" placeholder="Busca radio: La Mejor, 【entity-Exa¦canonical_name=Exa FM】, Los 40..." onkeydown="if(event.key==='Enter') buscarRadio()"><button onclick="buscarRadio()">Buscar</button></div>
     <div class="chips">
       <div class="chip" onclick="buscarRadioRapido('La Mejor')">📻 La Mejor</div>
-      <div class="chip" onclick="buscarRadioRapido('Exa')">🎧 【entity-Exa FM¦canonical_name=Exa FM】</div>
+      <div class="chip" onclick="buscarRadioRapido('【entity-Exa¦canonical_name=Exa FM】')">🎧 【entity-Exa¦canonical_name=Exa FM】 FM</div>
       <div class="chip" onclick="buscarRadioRapido('Los 40')">🔥 Los 40</div>
       <div class="chip" onclick="buscarRadioRapido('Banda')">🤠 Banda</div>
       <div class="chip" onclick="buscarRadioRapido('Reggaeton')">🎶 Reggaetón</div>
@@ -137,7 +132,6 @@
   <h2 id="tituloLista">🔥 Música sin MP3</h2>
   <div id="lista"></div>
 
-  <!-- PANEL ADMIN -->
   <div id="panelAdmin" class="hidden">
     <h2>🛡️ PANEL DE ADMIN</h2>
     <div style="display:flex;gap:8px;padding:0 15px;margin-bottom:12px">
@@ -155,7 +149,7 @@
   <div class="player">
     <div class="player-top">
       <div class="cover" id="coverPlayer">🎵</div>
-      <div class="info" style="flex:1"><b id="titulo">Elige algo bro</b><span id="artista">TONY MUSIC</span></div>
+      <div class="info" style="flex:1"><b id="titulo">Elige algo bro</b><span id="artista">ANGEL MUSIC</span></div>
       <span id="liveBadge" class="live hidden">EN VIVO</span>
       <div style="font-size:22px" onclick="siguiente()">⏭</div>
     </div>
@@ -172,18 +166,18 @@
 <audio id="audio"></audio>
 
 <script>
-let users = JSON.parse(localStorage.getItem('tony_users') || '[]');
+let users = JSON.parse(localStorage.getItem('angel_users') || '[]');
 if(users.length===0){
-  users = [{nombre:'Admin Tony', user:'admin', pass:'tony123', rol:'admin', estado:'verificado', fecha:new Date().toLocaleDateString()}];
-  localStorage.setItem('tony_users', JSON.stringify(users));
+  users = [{nombre:'Admin Angel', user:'admin', pass:'angel2026', rol:'admin', estado:'verificado', fecha:new Date().toLocaleDateString()}];
+  localStorage.setItem('angel_users', JSON.stringify(users));
 }
-let sesion = JSON.parse(localStorage.getItem('tony_sesion') || 'null');
+let sesion = JSON.parse(localStorage.getItem('angel_sesion') || 'null');
 let canciones = [];
 let radios = [];
 let actual = -1;
 let modo = 'musica';
 let audio = document.getElementById('audio');
-function guardarUsers(){ localStorage.setItem('tony_users', JSON.stringify(users)); }
+function guardarUsers(){ localStorage.setItem('angel_users', JSON.stringify(users)); }
 function mostrarRegistro(){ document.getElementById('formLogin').classList.add('hidden'); document.getElementById('formRegistro').classList.remove('hidden'); }
 function mostrarLogin(){ document.getElementById('formRegistro').classList.add('hidden'); document.getElementById('formLogin').classList.remove('hidden'); }
 function msg(tipo, texto){ document.getElementById('msgAuth').innerHTML = `<div class="${tipo}">${texto}</div>`; }
@@ -204,9 +198,9 @@ function login(){
   let u=users.find(x=>x.user===user&&x.pass===pass);
   if(!u) return msg('error','❌ Usuario o clave mal');
   if(u.estado==='baneado') return msg('error','🚫 Baneado. Habla con admin.');
-  localStorage.setItem('tony_sesion', JSON.stringify(u)); sesion=u; entrarApp();
+  localStorage.setItem('angel_sesion', JSON.stringify(u)); sesion=u; entrarApp();
 }
-function salir(){ localStorage.removeItem('tony_sesion'); location.reload(); }
+function salir(){ localStorage.removeItem('angel_sesion'); location.reload(); }
 function entrarApp(){
   document.getElementById('pantallaAuth').classList.add('hidden');
   document.getElementById('pantallaApp').classList.remove('hidden');
@@ -216,7 +210,6 @@ function entrarApp(){
   if(sesion.estado!=='verificado' && sesion.rol!=='admin') document.getElementById('avisoPendiente').classList.remove('hidden');
   buscarRapido('Peso Pluma', null);
 }
-// ADMIN
 function abrirAdmin(){ document.getElementById('panelAdmin').classList.remove('hidden'); window.scrollTo({top:document.getElementById('panelAdmin').offsetTop-20, behavior:'smooth'}); renderAdmin(); }
 function cerrarAdmin(){ document.getElementById('panelAdmin').classList.add('hidden'); }
 function renderAdmin(){
@@ -240,8 +233,6 @@ function quitarVerif(i){ users[i].estado='pendiente'; guardarUsers(); renderAdmi
 function banear(i){ users[i].estado = users[i].estado==='baneado'?'pendiente':'baneado'; guardarUsers(); renderAdmin(); }
 function eliminar(i){ if(confirm('¿Eliminar a @'+users[i].user+'?')){ users.splice(i,1); guardarUsers(); renderAdmin(); } }
 function verificarTodos(){ users.forEach(u=>{ if(u.estado==='pendiente') u.estado='verificado'; }); guardarUsers(); renderAdmin(); alert('✅ Todos verificados'); }
-
-// TABS
 function cambiarTab(t){
   modo=t;
   document.getElementById('tabMusica').classList.toggle('active', t==='musica');
@@ -252,11 +243,9 @@ function cambiarTab(t){
   if(t==='radio' && radios.length===0) buscarRadioRapido('La Mejor');
   else if(t==='musica') mostrarMusica();
 }
-
-// MUSICA
 async function buscar(){
   if(sesion.estado!=='verificado' && sesion.rol!=='admin'){ alert('⏳ Necesitas verificación del admin'); return; }
-  let q=document.getElementById('buscar').value||'Peso Pluma';
+  let q=document.getElementById('buscar').value||'【entity-Peso Pluma¦canonical_name=Peso Pluma】';
   document.getElementById('tituloLista').innerText='Resultados: '+q;
   document.getElementById('lista').innerHTML='<p style="padding:15px;color:#aaa">Buscando... 🔍</p>';
   try{
@@ -281,8 +270,6 @@ function tocar(i){
   document.getElementById('liveBadge').classList.add('hidden');
   audio.src=c.url; audio.play(); document.getElementById('btnPlay').innerText='⏸';
 }
-
-// RADIO - BUSCADOR REAL
 async function buscarRadio(){
   let q=document.getElementById('buscarRadio').value||'La Mejor';
   document.getElementById('tituloLista').innerText='📻 Radios: '+q;
@@ -292,19 +279,15 @@ async function buscarRadio(){
     let data=await res.json();
     radios=data.filter(r=>r.url_resolved).map(r=>({nombre:r.name, pais:r.country||'México', genero:r.tags||'Radio', portada:r.favicon||'', url:r.url_resolved}));
     mostrarRadios();
-  }catch(e){ document.getElementById('lista').innerHTML='<p style="padding:15px;color:#aaa">No se pudo buscar radio, revisa internet</p>'; }
+  }catch(e){ document.getElementById('lista').innerHTML='<p style="padding:15px;color:#aaa">No se pudo buscar radio</p>'; }
 }
 function buscarRadioRapido(t){ document.getElementById('buscarRadio').value=t; cambiarTab('radio'); buscarRadio(); }
 function mostrarRadios(){
   let html='';
   radios.forEach((r,i)=>{
-    html+=`<div class="radio-card" onclick="tocarRadio(${i})">
-      <div class="cover">${r.portada ? `<img src="${r.portada}">` : '📻'}</div>
-      <div class="info"><b>${r.nombre}</b><span>${r.pais} • ${r.genero.slice(0,40)}</span></div>
-      <span class="live">EN VIVO</span>
-    </div>`;
+    html+=`<div class="radio-card" onclick="tocarRadio(${i})"><div class="cover">${r.portada ? `<img src="${r.portada}">` : '📻'}</div><div class="info"><b>${r.nombre}</b><span>${r.pais} • ${r.genero.slice(0,40)}</span></div><span class="live">EN VIVO</span></div>`;
   });
-  document.getElementById('lista').innerHTML=html || '<p style="padding:15px;color:#aaa">No salió radio, busca otra</p>';
+  document.getElementById('lista').innerHTML=html || '<p style="padding:15px;color:#aaa">No salió radio</p>';
 }
 function tocarRadio(i){
   if(sesion.estado!=='verificado' && sesion.rol!=='admin'){ alert('⏳ Necesitas verificación del admin'); return; }
@@ -316,7 +299,6 @@ function tocarRadio(i){
   audio.src=r.url; audio.play(); document.getElementById('btnPlay').innerText='⏸';
 }
 function pararRadio(){ audio.pause(); audio.src=''; document.getElementById('btnPlay').innerText='▶'; document.getElementById('liveBadge').classList.add('hidden'); }
-
 function playPause(){
   if(actual===-1){ if(modo==='radio' && radios.length) tocarRadio(0); else if(canciones.length) tocar(0); return; }
   if(audio.paused){ audio.play(); document.getElementById('btnPlay').innerText='⏸'; }
@@ -333,7 +315,6 @@ function anterior(){
 function saltar(v){ if(audio.duration && modo==='musica') audio.currentTime=(v/100)*audio.duration; }
 audio.ontimeupdate=()=>{ if(audio.duration && modo==='musica') document.getElementById('progreso').value=(audio.currentTime/audio.duration)*100; };
 audio.onended=()=>{ if(modo==='musica') siguiente(); };
-
 if(sesion) entrarApp();
 </script>
 </body>
