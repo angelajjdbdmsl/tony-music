@@ -1,99 +1,20 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TONY SENSI - FREE FIRE</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#0b0b12;color:white;padding:15px}
-h1{text-align:center;color:#ff2d2d;font-size:30px;margin:5px 0}
-p.sub{text-align:center;color:#aaa;margin:0 0 15px}
-.presets{display:flex;gap:8px;justify-content:center;margin-bottom:15px}
-.presets button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;color:white;font-size:14px}
-.b1{background:#1ed760}.b2{background:#ffaa00}.b3{background:#ff2d2d}
-.card{background:#1a1a25;padding:14px;border-radius:15px;margin:10px auto;max-width:600px}
-.row{display:flex;justify-content:space-between;align-items:center}
-.row b{font-size:16px}
-.row span{background:#ff2d2d;padding:5px 12px;border-radius:20px;font-weight:bold}
-input[type=range]{width:100%;margin-top:10px;accent-color:#ff2d2d;height:8px}
-.dpi-box{background:#1a1a25;padding:14px;border-radius:15px;max-width:600px;margin:10px auto;text-align:center}
-.dpi-box input{padding:12px;border-radius:12px;border:none;width:100px;text-align:center;font-size:18px;font-weight:bold}
-.big{width:100%;max-width:600px;display:block;margin:15px auto;padding:16px;border:none;border-radius:25px;background:#ff2d2d;color:white;font-size:18px;font-weight:bold}
-.copy{background:#1ed760}
-small{color:#aaa;display:block;text-align:center;margin-top:5px}
-</style>
-</head>
-<body>
-<h1>🎯 TONY SENSI</h1>
-<p class="sub">Panel de Sensibilidad - FREE FIRE</p>
-
-<div class="presets">
-<button class="b1" onclick="preset(1)">PRECISO</button>
-<button class="b2" onclick="preset(2)">EQUILIBRADO</button>
-<button class="b3" onclick="preset(3)">SOLO ROJO 🔥</button>
-</div>
-
-<div id="panel"></div>
-
-<div class="dpi-box">
-<b>📱 DPI RECOMENDADO</b><br><br>
-<input id="dpi" value="580"><br>
-<small>Si tu cel es gama baja pon 480 - Si es gama media/alta pon 580 a 700</small><br><br>
-<button onclick="alert('Pon este DPI en Ajustes > Pantalla > DPI o en Opciones de Desarrollador')" style="padding:10px 18px;border-radius:20px;border:none;background:#333;color:white;font-weight:bold">¿Cómo poner DPI?</button>
-</div>
-
-<button class="big copy" onclick="copiar()">📋 COPIAR MI SENSI</button>
-<button class="big" onclick="guardar()">💾 GUARDAR MI SENSI</button>
-<p id="msg" style="text-align:center;color:#1ed760;font-weight:bold"></p>
-
-<script>
-let datos=[
-{id:'general',nombre:'🎯 General',val:195},
-{id:'rojo',nombre:'🔴 Mira Punto Rojo',val:190},
-{id:'mira2',nombre:'🔍 Mira 2x',val:185},
-{id:'mira4',nombre:'🔍 Mira 4x',val:180},
-{id:'franco',nombre:'🎯 Mira Francotirador',val:170},
-{id:'camara',nombre:'📷 Cámara / Vista Libre',val:180},
-{id:'giroscopio',nombre:'📱 Giroscopio',val:100},
-];
-function pintar(){
-let h='';
-datos.forEach(function(d,i){
-h+='<div class="card"><div class="row"><b>'+d.nombre+'</b><span id="v'+i+'">'+d.val+'</span></div><input type="range" min="0" max="200" value="'+d.val+'" oninput="cambiar('+i+',this.value)"></div>';
-});
-document.getElementById('panel').innerHTML=h;
-}
-function cambiar(i,v){
-datos[i].val=v;
-document.getElementById('v'+i).innerText=v;
-}
-function preset(n){
-if(n==1){datos[0].val=170;datos[1].val=165;datos[2].val=160;datos[3].val=155;datos[4].val=150;datos[5].val=160;datos[6].val=50;}
-if(n==2){datos[0].val=185;datos[1].val=180;datos[2].val=175;datos[3].val=170;datos[4].val=160;datos[5].val=175;datos[6].val=100;}
-if(n==3){datos[0].val=200;datos[1].val=200;datos[2].val=195;datos[3].val=190;datos[4].val=180;datos[5].val=190;datos[6].val=150;}
-document.getElementById('dpi').value = n==3 ? 650 : n==2 ? 580 : 480;
-pintar();
-document.getElementById('msg').innerText='Preset aplicado 🔥 ¡A probar en entrenamiento!';
-}
-function texto(){
-let t='🔥 MI SENSI TONY - FREE FIRE\n';
-datos.forEach(function(d){ t+=d.nombre+' : '+d.val+'\n'; });
-t+='DPI: '+document.getElementById('dpi').value;
-return t;
-}
-function copiar(){
-navigator.clipboard.writeText(texto());
-document.getElementById('msg').innerText='¡Copiado! Ya lo puedes pegar en WhatsApp / TikTok';
-}
-function guardar(){
-localStorage.setItem('sensi',JSON.stringify(datos));
-localStorage.setItem('dpi',document.getElementById('dpi').value);
-document.getElementById('msg').innerText='¡Guardado en tu cel! Aunque cierres la página queda.';
-}
-let guardado=localStorage.getItem('sensi');
-if(guardado){ datos=JSON.parse(guardado); document.getElementById('dpi').value=localStorage.getItem('dpi')||580; }
-pintar();
-</script>
-</body>
-</html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>public_key</key>
+	<data>
+	Rm2KCyaotIZNT97eQFdV1EgftXdPDnuQ5lGrpdVPhMs=
+	</data>
+	<key>private_key</key>
+	<data>
+	Mp90KXm/B+3FRcHQgE5UOfEzQFXszF4uNnlfvZnbWDs=
+	</data>
+	<key>identifier</key>
+	<string>65f34248-232a-3062-810a-c878d1e833c4</string>
+	<key>alt_irk</key>
+	<data>
+	HEHzfwDx7hUx5JI9/p1cDA==
+	</data>
+</dict>
+</plist>
