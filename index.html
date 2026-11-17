@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TONY MUSIC</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#0f0f0f;color:white;padding:20px}
+h1{text-align:center;font-size:32px;margin:15px 0}
+h1 span{color:#1DB954}
+p{text-align:center;color:#aaa;margin-bottom:20px}
+.search{display:flex;gap:10px;max-width:500px;margin:0 auto 20px}
+input{flex:1;padding:14px;border-radius:30px;border:none;outline:none;font-size:16px}
+button{padding:14px 20px;border-radius:30px;border:none;background:#1DB954;color:white;font-weight:bold}
+.card{background:#1e1e1e;border-radius:15px;padding:15px;display:flex;gap:15px;align-items:center;margin:0 auto 12px;max-width:500px}
+.card img{width:70px;height:70px;border-radius:10px}
+.card b{font-size:16px}
+.card small{color:#aaa}
+audio{width:100%;margin-top:8px}
+</style>
+</head>
+<body>
+<h1>TONY <span>MUSIC</span> 🎵</h1>
+<p>Busca tu música favorita y escúchala</p>
+<div class="search">
+<input id="q" placeholder="Ej: Bad Bunny, Karol G...">
+<button onclick="buscar()">Buscar</button>
+</div>
+<div id="res"></div>
+<script>
+async function buscar(){
+let q=document.getElementById('q').value;
+if(!q) return;
+document.getElementById('res').innerHTML='<p style="text-align:center">Buscando...</p>';
+let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&limit=10');
+let d=await r.json();
+let html='';
+d.results.forEach(s=>{
+html+=`<div class="card"><img src="${s.artworkUrl100}"><div style="flex:1"><b>${s.trackName}</b><br><small>${s.artistName}</small><audio controls src="${s.previewUrl}"></audio></div></div>`;
+});
+document.getElementById('res').innerHTML=html||'<p>No encontré nada</p>';
+}
+document.getElementById('q').value='Bad Bunny';
+buscar();
+</script>
+</body>
+</html>
