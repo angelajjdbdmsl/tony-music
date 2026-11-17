@@ -33,13 +33,17 @@ async function buscar(){
 let q=document.getElementById('q').value;
 if(!q) return;
 document.getElementById('res').innerHTML='<p style="text-align:center">Buscando...</p>';
-let r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&limit=10');
-let d=await r.json();
+try{
+let url='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=10';
+let r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url));
+let j=await r.json();
+let d=JSON.parse(j.contents);
 let html='';
 d.results.forEach(s=>{
-html+=`<div class="card"><img src="${s.artworkUrl100}"><div style="flex:1"><b>${s.trackName}</b><br><small>${s.artistName}</small><audio controls src="${s.previewUrl}"></audio></div></div>`;
+html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls src="'+s.previewUrl+'"></audio></div></div>';
 });
 document.getElementById('res').innerHTML=html||'<p>No encontré nada</p>';
+}catch(e){ document.getElementById('res').innerHTML='<p>Error, intenta de nuevo</p>'; }
 }
 document.getElementById('q').value='Bad Bunny';
 buscar();
