@@ -5,46 +5,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TONY MUSIC</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0f0f0f;color:white;padding:20px}
-h1{text-align:center;font-size:32px;margin:15px 0}
-h1 span{color:#1DB954}
-p{text-align:center;color:#aaa;margin-bottom:20px}
-.search{display:flex;gap:10px;max-width:500px;margin:0 auto 20px}
-input{flex:1;padding:14px;border-radius:30px;border:none;outline:none;font-size:16px}
-button{padding:14px 20px;border-radius:30px;border:none;background:#1DB954;color:white;font-weight:bold}
-.card{background:#1e1e1e;border-radius:15px;padding:15px;display:flex;gap:15px;align-items:center;margin:0 auto 12px;max-width:500px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0a0a0a;color:white;padding:15px}
+h1{text-align:center;color:#1ed760;font-size:32px;margin:10px 0 5px}
+p.sub{text-align:center;color:#aaa;margin:0 0 15px}
+.box{display:flex;gap:8px;max-width:600px;margin:0 auto}
+input{flex:1;padding:14px;border-radius:25px;border:none;outline:none;font-size:16px}
+button{padding:14px 20px;border:none;border-radius:25px;background:#1ed760;font-weight:bold;font-size:16px}
+.card{display:flex;gap:12px;background:#1a1a1a;padding:12px;border-radius:15px;margin:12px auto;max-width:600px;align-items:center}
 .card img{width:70px;height:70px;border-radius:10px}
 .card b{font-size:16px}
 .card small{color:#aaa}
-audio{width:100%;margin-top:8px}
+audio{width:100%;margin-top:6px;height:35px}
 </style>
 </head>
 <body>
-<h1>TONY <span>MUSIC</span> 🎵</h1>
-<p>Busca tu música favorita y escúchala</p>
-<div class="search">
-<input id="q" placeholder="Ej: Bad Bunny, Karol G...">
+<h1>🎵 TONY MUSIC</h1>
+<p class="sub">Busca tu canción y escúchala</p>
+<div class="box">
+<input id="q" placeholder="Ejemplo: Bad Bunny" value="Bad Bunny">
 <button onclick="buscar()">Buscar</button>
 </div>
 <div id="res"></div>
 <script>
 async function buscar(){
-let q=document.getElementById('q').value;
+let q=document.getElementById('q').value.trim();
 if(!q) return;
-document.getElementById('res').innerHTML='<p style="text-align:center">Buscando...</p>';
+let res=document.getElementById('res');
+res.innerHTML='<p style="text-align:center">Buscando...</p>';
+
+// INTENTO 1: DEEZER
 try{
-let url='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=10';
-let r=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url));
+let r=await fetch('https://corsproxy.io/?url='+encodeURIComponent('https://api.deezer.com/search?q='+encodeURIComponent(q)));
 let d=await r.json();
+if(d.data && d.data.length>0){
+let html='';
+d.data.slice(0,12).forEach(s=>{
+html+='<div class="card"><img src="'+s.album.cover_medium+'"><div style="flex:1"><b>'+s.title+'</b><br><small>'+s.artist.name+'</small><audio controls src="'+s.preview+'"></audio></div></div>';
+});
+res.innerHTML=html;
+return;
+}
+}catch(e){}
+
+// INTENTO 2: ITUNES SIN PAIS
+try{
+let url='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=12';
+let r=await fetch(url);
+let d=await r.json();
+if(d.results && d.results.length>0){
 let html='';
 d.results.forEach(s=>{
 html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls src="'+s.previewUrl+'"></audio></div></div>';
 });
-document.getElementById('res').innerHTML=html||'<p>No encontré nada</p>';
-}catch(e){ document.getElementById('res').innerHTML='<p>Error, intenta de nuevo</p>'; }
+res.innerHTML=html;
+return;
 }
-document.getElementById('q').value='Bad Bunny';
+}catch(e){}
+
+res.innerHTML='<p style="text-align:center">No encontré nada, intenta otra palabra</p>';
+}
 buscar();
 </script>
 </body>
