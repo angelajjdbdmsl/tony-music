@@ -32,27 +32,27 @@ function buscar(){
 let q=document.getElementById('q').value.trim();
 if(!q) return;
 let res=document.getElementById('res');
-res.innerHTML='<p style="text-align:center">Buscando...</p>';
+res.innerHTML='<p style="text-align:center">Buscando en Deezer...</p>';
 let viejo=document.getElementById('buscador');
 if(viejo) viejo.remove();
 window.mostrarMusica=function(d){
-if(!d || !d.results || d.results.length===0){
-res.innerHTML='<p style="text-align:center">No encontré nada</p>';
+if(!d || !d.data || d.data.length===0){
+res.innerHTML='<p style="text-align:center">No encontré nada, intenta con otro artista</p>';
 return;
 }
 let html='';
-d.results.forEach(function(s){
-html+='<div class="card"><img src="'+s.artworkUrl100+'"><div style="flex:1"><b>'+s.trackName+'</b><br><small>'+s.artistName+'</small><audio controls preload="none" src="'+s.previewUrl+'"></audio></div></div>';
+d.data.slice(0,12).forEach(function(s){
+html+='<div class="card"><img src="'+s.album.cover_medium+'"><div style="flex:1"><b>'+s.title+'</b><br><small>'+s.artist.name+'</small><audio controls preload="none" src="'+s.preview+'"></audio></div></div>';
 });
 res.innerHTML=html;
 };
 let sc=document.createElement('script');
 sc.id='buscador';
-sc.src='https://itunes.apple.com/search?term='+encodeURIComponent(q)+'&media=music&entity=song&limit=12&callback=mostrarMusica';
+sc.src='https://api.deezer.com/search?q='+encodeURIComponent(q)+'&output=jsonp&callback=mostrarMusica';
 document.body.appendChild(sc);
 setTimeout(function(){
 if(document.getElementById('res').innerHTML.indexOf('Buscando')!==-1){
-document.getElementById('res').innerHTML='<p style="text-align:center">Tarda mucho, pícale otra vez a Buscar</p>';
+document.getElementById('res').innerHTML='<p style="text-align:center">Deezer tardó, pícale otra vez a Buscar<br>o cambia a datos / wifi</p>';
 }
 },8000);
 }
