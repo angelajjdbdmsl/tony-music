@@ -3,81 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TONY MUSIC</title>
+<title>TONY MUSIC - Como 【entity-Spotify¦canonical_name=Spotify】</title>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-  body{background:#0a0a0a;color:#fff;padding:15px;padding-bottom:120px}
-  h1{text-align:center;color:#ff2d55;font-size:26px;margin:5px 0}
-  p{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
-  .search{width:100%;padding:13px;border-radius:12px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;margin-bottom:12px;outline:none}
-  .card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;padding:14px;margin-bottom:12px}
-  .card h2{font-size:15px;color:#ff2d55;margin-bottom:10px}
-  .song{display:flex;align-items:center;gap:12px;padding:11px;background:#222;border-radius:12px;margin-bottom:8px;cursor:pointer}
-  .song.active{background:#ff2d55}
-  .cover{width:50px;height:50px;border-radius:10px;background:linear-gradient(135deg,#ff2d55,#ff9500);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden}
+  body{background:#000;color:#fff;padding-bottom:140px}
+  /* HEADER TIPO 【entity-SPOTIFY¦canonical_name=Spotify】 */
+  .header{position:sticky;top:0;background:#000;padding:15px;display:flex;align-items:center;gap:12px;z-index:10}
+  .logo{width:42px;height:42px;background:#1ed760;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#000;font-weight:bold}
+  .header b{font-size:20px;letter-spacing:-0.5px}
+  .header span{font-size:11px;background:#1ed760;color:#000;padding:3px 8px;border-radius:20px;font-weight:bold}
+  .search-bar{margin:0 15px;background:#242424;border-radius:30px;padding:12px 16px;display:flex;gap:10px;align-items:center}
+  .search-bar input{background:none;border:none;outline:none;color:#fff;width:100%;font-size:15px}
+  .search-bar input::placeholder{color:#a7a7a7}
+  /* CHIPS */
+  .chips{display:flex;gap:8px;padding:10px 15px;overflow-x:auto;white-space:nowrap}
+  .chip{background:#232323;padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;flex-shrink:0}
+  .chip.active{background:#fff;color:#000;font-weight:bold}
+  /* SECCION */
+  h2{font-size:19px;padding:15px 15px 10px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 15px}
+  .playlist-card{background:#181818;border-radius:12px;padding:12px;cursor:pointer}
+  .playlist-card:active{background:#282828}
+  .playlist-card .img{width:100%;aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:8px}
+  .playlist-card b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .playlist-card span{font-size:12px;color:#a7a7a7}
+  /* LISTA TIPO SPOTIFY */
+  .song{display:flex;align-items:center;gap:12px;padding:10px 15px;cursor:pointer}
+  .song.active{background:#1a1a1a}
+  .num{width:20px;text-align:center;color:#a7a7a7;font-size:13px}
+  .cover{width:52px;height:52px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;overflow:hidden}
   .cover img{width:100%;height:100%;object-fit:cover}
   .info{flex:1;min-width:0}
-  .info b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}
-  .info span{font-size:12px;color:#aaa}
-  .song.active .info span{color:#fff}
-  .playbtn{width:36px;height:36px;border-radius:50%;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0}
-  input[type=file]{width:100%;background:#222;padding:10px;border-radius:10px;color:#fff;margin-top:8px}
-  .player{position:fixed;bottom:0;left:0;right:0;background:#161616;border-top:1px solid #333;padding:12px 15px}
-  .player-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-  .player-top .cover{width:44px;height:44px}
-  .controls{display:flex;justify-content:center;gap:15px;align-items:center;margin:8px 0}
-  .controls button{border:none;cursor:pointer;background:#222;color:#fff;border-radius:50%;width:44px;height:44px;font-size:18px}
-  .controls button.main{background:#ff2d55;width:58px;height:58px;font-size:24px;color:#fff}
-  input[type=range]{width:100%;accent-color:#ff2d55}
-  .time{display:flex;justify-content:space-between;font-size:11px;color:#aaa;margin-top:4px}
-  .chip{display:inline-block;background:#222;border:1px solid #333;padding:7px 12px;border-radius:20px;font-size:12px;margin:0 5px 5px 0;cursor:pointer}
-  .chip.active{background:#ff2d55;border-color:#ff2d55}
+  .info b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px;font-weight:500}
+  .info span{font-size:13px;color:#a7a7a7}
+  .heart{font-size:20px}
+  /* PLAYER ABAJO */
+  .player{position:fixed;bottom:0;left:0;right:0;background:#111;padding:10px 12px 14px;border-top:1px solid #222}
+  .player-top{display:flex;align-items:center;gap:10px}
+  .player-top .cover{width:48px;height:48px}
+  .progress-wrap{margin:10px 0 6px}
+  input[type=range]{width:100%;accent-color:#fff;height:4px}
+  .time{display:flex;justify-content:space-between;font-size:11px;color:#a7a7a7}
+  .controls{display:flex;justify-content:center;align-items:center;gap:20px;margin-top:8px}
+  .controls button{background:none;border:none;color:#fff;font-size:22px;cursor:pointer}
+  .controls button.main{background:#fff;color:#000;width:56px;height:56px;border-radius:50%;font-size:24px;display:flex;align-items:center;justify-content:center}
+  .bottom-nav{display:flex;justify-content:space-around;padding:12px 0 0;color:#a7a7a7;font-size:11px;text-align:center}
+  .bottom-nav div.active{color:#fff}
+  .add-btn{margin:15px;background:#1ed760;color:#000;text-align:center;padding:14px;border-radius:30px;font-weight:bold;cursor:pointer}
+  input[type=file]{display:none}
 </style>
 </head>
 <body>
 
-<h1>🎵 TONY MUSIC</h1>
-<p>Tu música, sin anuncios, sin llave, sin internet</p>
+<div class="header">
+  <div class="logo">♪</div>
+  <div><b>TONY MUSIC</b><br><span>PREMIUM GRATIS</span></div>
+  <div style="margin-left:auto;font-size:22px">🔔</div>
+</div>
 
-<input class="search" id="buscar" placeholder="🔍 Buscar canción..." oninput="filtrar()">
+<div class="search-bar">🔍 <input id="buscar" placeholder="¿Qué quieres escuchar?" oninput="mostrar()"></div>
 
-<div class="card">
-  <h2>🎧 Mis canciones</h2>
-  <div>
-    <span class="chip active" onclick="filtrarCat('todo',this)">Todo</span>
-    <span class="chip" onclick="filtrarCat('corridos',this)">Corridos</span>
-    <span class="chip" onclick="filtrarCat('reggaeton',this)">Reggaetón</span>
-    <span class="chip" onclick="filtrarCat('rap',this)">Rap / Trap</span>
+<div class="chips" id="chips">
+  <div class="chip active" onclick="setCat('todo',this)">Todo</div>
+  <div class="chip" onclick="setCat('corridos',this)">Corridos</div>
+  <div class="chip" onclick="setCat('reggaeton',this)">Reggaetón</div>
+  <div class="chip" onclick="setCat('rap',this)">Trap / Rap</div>
+  <div class="chip" onclick="setCat('fav',this)">❤️ Me gusta</div>
+</div>
+
+<h2>Hecho para ti</h2>
+<div class="grid">
+  <div class="playlist-card" onclick="playMix('corridos')">
+    <div class="img" style="background:linear-gradient(135deg,#ff2d55,#ff9500)">🤠</div>
+    <b>Corridos Bélicos</b><span>Mix diario • TONY</span>
   </div>
-  <div id="lista" style="margin-top:10px"></div>
+  <div class="playlist-card" onclick="playMix('reggaeton')">
+    <div class="img" style="background:linear-gradient(135deg,#8e2de2,#4a00e0)">🔥</div>
+    <b>Perreo Pa' Jugar</b><span>Para subir rango</span>
+  </div>
+  <div class="playlist-card" onclick="playMix('rap')">
+    <div class="img" style="background:linear-gradient(135deg,#000,#333)">🎤</div>
+    <b>Trap Focus</b><span>Concentración total</span>
+  </div>
+  <div class="playlist-card" onclick="document.getElementById('file').click()">
+    <div class="img" style="background:linear-gradient(135deg,#1ed760,#00c853)">➕</div>
+    <b>Agregar Música</b><span>Tus MP3 de tu cel</span>
+  </div>
 </div>
 
-<div class="card">
-  <h2>➕ Agregar tus canciones</h2>
-  <p style="text-align:left;color:#ccc;font-size:12px;margin-bottom:5px">Elige tus MP3 de tu celular y se agregan al momento.</p>
-  <input type="file" id="file" accept="audio/*" multiple>
-  <button onclick="document.getElementById('file').click()" style="width:100%;padding:12px;border:none;border-radius:12px;background:#ff2d55;color:#fff;font-weight:bold;margin-top:10px">📂 ELEGIR MÚSICA DE MI CEL</button>
-</div>
+<h2>Tu biblioteca</h2>
+<div id="lista"></div>
+
+<div class="add-btn" onclick="document.getElementById('file').click()">📂 AGREGAR MIS MP3</div>
+<input type="file" id="file" accept="audio/*" multiple>
 
 <div class="player">
   <div class="player-top">
-    <div class="cover" id="coverPlayer">🎵</div>
-    <div class="info" style="flex:1">
-      <b id="titulo">Elige una canción bro</b>
-      <span id="artista">TONY MUSIC</span>
-    </div>
-    <span id="like" onclick="like()" style="font-size:22px;cursor:pointer">🤍</span>
+    <div class="cover" id="coverPlayer" style="background:#1ed760">🎵</div>
+    <div class="info" style="flex:1"><b id="titulo">Elige una canción</b><span id="artista">TONY MUSIC</span></div>
+    <div class="heart" id="likeBtn" onclick="toggleLike()">🤍</div>
+    <div style="font-size:22px" onclick="siguiente()">⏭</div>
   </div>
-  <input type="range" id="progreso" value="0" min="0" max="100" oninput="saltar(this.value)">
+  <div class="progress-wrap"><input type="range" id="progreso" value="0" min="0" max="100" oninput="saltar(this.value)"></div>
   <div class="time"><span id="actual">0:00</span><span id="total">0:00</span></div>
   <div class="controls">
+    <button onclick="aleatorio()">🔀</button>
     <button onclick="anterior()">⏮</button>
     <button class="main" id="btnPlay" onclick="playPause()">▶</button>
     <button onclick="siguiente()">⏭</button>
-    <button onclick="aleatorio()" style="font-size:14px">🔀</button>
+    <button onclick="repetir()">🔁</button>
   </div>
-  <div style="display:flex;align-items:center;gap:8px">
-    <span>🔈</span><input type="range" id="vol" min="0" max="100" value="80" oninput="volumen(this.value)"><span>🔊</span>
+  <div class="bottom-nav">
+    <div class="active">🏠<br>Inicio</div>
+    <div>🔍<br>Buscar</div>
+    <div>📚<br>Biblioteca</div>
+    <div>👤<br>TONY</div>
   </div>
 </div>
 
@@ -85,90 +125,82 @@
 
 <script>
 let canciones = [
-  {titulo:"Corridos Tumbados Mix", artista:"TONY", cat:"corridos", emoji:"🎸", url:""},
-  {titulo:"Reggaetón Para Jugar", artista:"TONY", cat:"reggaeton", emoji:"🔥", url:""},
-  {titulo:"Trap Focus - Para Subir Rango", artista:"TONY", cat:"rap", emoji:"🎤", url:""},
-  {titulo:"Bélico Mix 2026", artista:"TONY", cat:"corridos", emoji:"🤠", url:""},
+  {titulo:"Corridos Tumbados Mix", artista:"TONY Mix", cat:"corridos", emoji:"🤠", color:"#ff2d55", url:"", fav:false},
+  {titulo:"Bélico Hasta Morir", artista:"TONY", cat:"corridos", emoji:"🔥", color:"#ff9500", url:"", fav:false},
+  {titulo:"Perreo Pa' Subir Rango", artista:"TONY", cat:"reggaeton", emoji:"🎶", color:"#8e2de2", url:"", fav:false},
+  {titulo:"Trap Focus 2026", artista:"TONY", cat:"rap", emoji:"🎤", color:"#333", url:"", fav:false},
+  {titulo:"Reggaetón Viejo - Clásicos", artista:"TONY", cat:"reggaeton", emoji:"💃", color:"#00c853", url:"", fav:false},
 ];
 let actual = -1;
-let catActual = 'todo';
-let liked = false;
+let cat = 'todo';
 let audio = document.getElementById('audio');
 
 function mostrar(){
   let q = document.getElementById('buscar').value.toLowerCase();
   let html = '';
   canciones.forEach((c,i)=>{
-    if(catActual!=='todo' && c.cat!==catActual) return;
+    if(cat!=='todo' && cat!=='fav' && c.cat!==cat) return;
+    if(cat==='fav' && !c.fav) return;
     if(q && !c.titulo.toLowerCase().includes(q)) return;
     html += `<div class="song ${i===actual?'active':''}" onclick="tocar(${i})">
-      <div class="cover">${c.emoji}</div>
-      <div class="info"><b>${c.titulo}</b><span>${c.artista} • ${c.cat}</span></div>
-      <div class="playbtn">${i===actual?'⏸':'▶'}</div>
+      <div class="num">${i===actual?'▶':i+1}</div>
+      <div class="cover" style="background:${c.color}">${c.emoji}</div>
+      <div class="info"><b>${c.titulo}</b><span>${c.artista}</span></div>
+      <div class="heart" onclick="event.stopPropagation();fav(${i})">${c.fav?'❤️':'🤍'}</div>
     </div>`;
   });
-  if(!html) html = '<p style="color:#888;font-size:13px">No hay canciones. Agrégalas abajo 👇</p>';
+  if(!html) html = '<p style="padding:15px;color:#a7a7a7;font-size:13px">No hay canciones aquí. Dale a AGREGAR MIS MP3 👇</p>';
   document.getElementById('lista').innerHTML = html;
 }
-function filtrar(){ mostrar(); }
-function filtrarCat(cat, el){
-  catActual = cat;
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+function setCat(c,el){
+  cat=c;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
   el.classList.add('active');
   mostrar();
 }
 function tocar(i){
-  actual = i;
-  let c = canciones[i];
-  document.getElementById('titulo').innerText = c.titulo;
-  document.getElementById('artista').innerText = c.artista;
-  document.getElementById('coverPlayer').innerText = c.emoji;
-  if(!c.url){
-    alert('Bro, esta es de ejemplo. Agrega tus MP3 abajo y esa sí va a sonar.');
-    mostrar();
-    return;
-  }
-  audio.src = c.url;
-  audio.play();
-  document.getElementById('btnPlay').innerText = '⏸';
+  actual=i; let c=canciones[i];
+  document.getElementById('titulo').innerText=c.titulo;
+  document.getElementById('artista').innerText=c.artista;
+  document.getElementById('coverPlayer').innerText=c.emoji;
+  document.getElementById('coverPlayer').style.background=c.color;
+  document.getElementById('likeBtn').innerText=c.fav?'❤️':'🤍';
+  if(!c.url){ alert('Esa es de ejemplo bro. Agrega tus MP3 y esa sí suena.'); mostrar(); return; }
+  audio.src=c.url; audio.play();
+  document.getElementById('btnPlay').innerText='⏸';
   mostrar();
 }
 function playPause(){
   if(actual===-1){ tocar(0); return; }
   if(audio.paused){ audio.play(); document.getElementById('btnPlay').innerText='⏸'; }
-  else { audio.pause(); document.getElementById('btnPlay').innerText='▶'; }
+  else{ audio.pause(); document.getElementById('btnPlay').innerText='▶'; }
 }
-function siguiente(){
-  if(canciones.length===0) return;
-  tocar((actual+1)%canciones.length);
-}
-function anterior(){
-  if(canciones.length===0) return;
-  tocar((actual-1+canciones.length)%canciones.length);
-}
+function siguiente(){ if(canciones.length) tocar((actual+1)%canciones.length); }
+function anterior(){ if(canciones.length) tocar((actual-1+canciones.length)%canciones.length); }
 function aleatorio(){ tocar(Math.floor(Math.random()*canciones.length)); }
-function like(){
-  liked = !liked;
-  document.getElementById('like').innerText = liked?'❤️':'🤍';
+function repetir(){ audio.currentTime=0; audio.play(); }
+function fav(i){ canciones[i].fav=!canciones[i].fav; if(actual===i) document.getElementById('likeBtn').innerText=canciones[i].fav?'❤️':'🤍'; mostrar(); }
+function toggleLike(){ if(actual>=0) fav(actual); }
+function saltar(v){ if(audio.duration) audio.currentTime=(v/100)*audio.duration; }
+function playMix(categoria){
+  let idx = canciones.findIndex(x=>x.cat===categoria);
+  if(idx>=0) tocar(idx);
 }
-function volumen(v){ audio.volume = v/100; }
-function saltar(v){ if(audio.duration) audio.currentTime = (v/100)*audio.duration; }
-audio.ontimeupdate = ()=>{
+audio.ontimeupdate=()=>{
   if(!audio.duration) return;
-  document.getElementById('progreso').value = (audio.currentTime/audio.duration)*100;
-  document.getElementById('actual').innerText = fmt(audio.currentTime);
-  document.getElementById('total').innerText = fmt(audio.duration);
+  document.getElementById('progreso').value=(audio.currentTime/audio.duration)*100;
+  document.getElementById('actual').innerText=fmt(audio.currentTime);
+  document.getElementById('total').innerText=fmt(audio.duration);
 };
-audio.onended = ()=> siguiente();
+audio.onended=()=>siguiente();
 function fmt(s){ let m=Math.floor(s/60); let sec=Math.floor(s%60); return m+':'+(sec<10?'0':'')+sec; }
 
-document.getElementById('file').onchange = e=>{
-  let files = [...e.target.files];
+document.getElementById('file').onchange=e=>{
+  let files=[...e.target.files];
   files.forEach(f=>{
-    let url = URL.createObjectURL(f);
-    canciones.push({titulo:f.name.replace('.mp3','').replace('.m4a',''), artista:'Mi Celular', cat:'todo', emoji:'🎵', url:url});
+    canciones.push({titulo:f.name.replace('.mp3','').replace('.m4a',''), artista:'Mi Celular', cat:'todo', emoji:'🎵', color:'#1ed760', url:URL.createObjectURL(f), fav:false});
   });
-  alert('Listo bro! Se agregaron '+files.length+' canciones. Ya puedes ponerles play.');
+  alert('Listo bro! '+files.length+' canciones agregadas. Ya puedes ponerle play.');
   mostrar();
 };
 mostrar();
